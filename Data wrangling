@@ -1,0 +1,9 @@
+import pandas as pd
+
+df = pd.read_csv('/Users/Shannan/Documents/GitHub/movie-recommender/IMDB_scraper/results.csv')
+df.rename(columns = {'movie_or_TV_name':'Movie or TV Show','actor':'Actor'},inplace = True)
+df.head()
+final_df = pd.DataFrame(df.groupby(['Movie or TV Show'])['Actor'].aggregate(
+'count')).sort_values(by='Actor',ascending = False)[:15]
+
+print(final_df.to_markdown())
